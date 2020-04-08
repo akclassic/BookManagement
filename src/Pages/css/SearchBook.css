@@ -1,0 +1,23 @@
+.SearchBook{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Searchbox{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.PublisherSelect{
+    width: 40%;
+    margin-right: 10px;
+}
+
+.AuthorSelect{
+    width: 40%;
+}

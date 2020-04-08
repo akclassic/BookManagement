@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 import Book from '../Components/Book';
 import './css/Dashboard.css';
@@ -26,6 +27,8 @@ export default function Dashboard() {
 
     const [isSave, setIsSave] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
+
+    const history = useHistory(); 
 
     const fetchAuthorList = () => {
         fetch("http://localhost:65497/api/Author",
@@ -211,10 +214,20 @@ export default function Dashboard() {
         deleteBook(event.target.id);
     }
 
+    const handleSearch = () =>{
+        history.push('/SearchBook');
+    }
+
+    const handleViewBooks = () => { 
+        history.push('/booksbypublisher');
+    }
+
     return (
         <div className="dashboard">
             <div className="AddNew">
                 <button onClick={handleAddNewBook} className="addbtn">Add a book</button>
+                <Button href="#" onClick={handleSearch}>Search Books</Button>
+                <Button href="#" onClick={handleViewBooks}>View Books By Publishers</Button>
             </div>
             {isLoading &&
                 <div style={{ alignSelf: 'center', margin: 'auto' }}>

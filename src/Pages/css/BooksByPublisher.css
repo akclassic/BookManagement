@@ -1,0 +1,9 @@
+.PublisherBooksContainer{
+    width: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.publisher{
+    width: 100%;
+}

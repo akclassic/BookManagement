@@ -13,10 +13,12 @@ export default function Book({ book, index, handleEdit, handleDelete }) {
                 <p>Title: {book.bookName}</p>
                 <p>Summary: {book.bookDescription}</p>
             </div>
-            <div className="EditDelete">
+            {
+                handleEdit && handleDelete && <div className="EditDelete">
                 <Button variant="warning" id={book.bookId} onClick={handleEdit}>Edit Details</Button>
                 <Button variant="danger" id={book.bookId} onClick={handleDelete}>Delete</Button>
             </div>
+            }
         </div>
     )
 }
