@@ -1,0 +1,12 @@
+.BooksAuthor{
+    margin: 10px;
+}
+
+.BooksAuthor a{
+    text-decoration: none;
+    color: white;
+}
+
+.Title{
+    margin-left: 10px;
+}

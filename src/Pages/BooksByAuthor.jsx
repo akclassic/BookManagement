@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Book from '../Components/Book';
+import './css/BooksByAuthor.css';
 
 export default function BooksByAuthor({ match }) {
 
@@ -16,9 +17,9 @@ export default function BooksByAuthor({ match }) {
 
 
     return (
-        <div>
+        <div className="BooksAuthor">
             <Link to="/booksbypublisher">Go Back</Link>
-            <div>
+            <div className="Title">
                 Publisher: {publisherName} Author: {authorData.authorName}
             </div>
             <div style={{display: 'flex', flexDirection: 'row'}}>

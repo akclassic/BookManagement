@@ -1,35 +1,18 @@
 import React, { useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPublisherDetails } from '../actions';
+import { loadPublisherDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import './css/BooksByPublisher.css';
 
 export default function BooksByPublisher() {
 
     const dispatch = useDispatch();
-    // const history = useHistory();
-
-    const fetchPublisherDetails = () => {
-        fetch("http://localhost:65497/api/Publisher/publisherdetails",
-            {
-                method: 'GET'
-            })
-            .then((response) => {
-                if (response.status === 200) {
-                    response.json().then(function (data) {
-                        dispatch(setPublisherDetails(data));
-                    });
-                } else {
-                    alert("Unable to fetch books from database!");
-                }
-            });
-    }
 
     const publisherDetails = useSelector(state => state.publisherDetails);
 
     useEffect(() => {
-        fetchPublisherDetails();
+        dispatch(loadPublisherDetails());
     }, [])
 
     return (
@@ -39,10 +22,10 @@ export default function BooksByPublisher() {
                     return <div key={index} className="publisher">
                         {
                             <div>
-                                <p>{publisher.publisher.publisherName}</p>
-                                <div>{
+                                <p className="Name">{publisher.publisher.publisherName}</p>
+                                <div className="AuthorList">{
                                     publisher.authorBook.map((author, index) => {
-                                    return <p key={index} style={{marginLeft: '20px'}}>{author.authorName} - Number of books <Link to={`/booksbypublisher/${publisher.publisher.id}/${author.id}`}>{author.books.length}</Link></p>
+                                    return <p key={index} className="Author" style={{marginLeft: '20px'}}>{author.authorName} - Number of books <Link to={`/booksbypublisher/${publisher.publisher.id}/${author.id}`}>{author.books.length}</Link></p>
                                     })
                                 }
                                 </div>

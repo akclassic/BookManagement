@@ -5,6 +5,8 @@ import Book from '../Components/Book';
 import './css/Dashboard.css';
 import { Form, Button } from 'react-bootstrap';
 
+// import { fetchBookList, fetchAuthorList, fetchPublisherList, fetchCategoryList } from '../util/apicalls';
+
 Modal.setAppElement('#root');
 
 export default function Dashboard() {
@@ -30,7 +32,7 @@ export default function Dashboard() {
 
     const history = useHistory(); 
 
-    const fetchAuthorList = () => {
+    const getAuthorList = () => {
         fetch("http://localhost:65497/api/Author",
             {
                 method: 'GET'
@@ -45,9 +47,13 @@ export default function Dashboard() {
                     alert("Unable to fetch books from database!");
                 }
             });
+
+            // console.log(fetchAuthorList());
+        // setAuthorList(fetchAuthorList());
+        // setIsLoading(false);
     }
 
-    const fetchCategoryList = () => {
+    const getCategoryList = () => {
         fetch("http://localhost:65497/api/BookCategory",
             {
                 method: 'GET'
@@ -62,9 +68,11 @@ export default function Dashboard() {
                     alert("Unable to fetch books from database!");
                 }
             });
+        // setCategoryList(fetchCategoryList());
+        // setIsLoading(false);
     }
 
-    const fetchPublisherList = () => {
+    const getPublisherList = () => {
         fetch("http://localhost:65497/api/Publisher",
             {
                 method: 'GET'
@@ -79,9 +87,11 @@ export default function Dashboard() {
                     alert("Unable to fetch books from database!");
                 }
             });
+    // setPublisherList(fetchPublisherList());
+    // setIsLoading(false);
     }
 
-    const fetchBookList = () => {
+    const getBookList = () => {
         fetch("http://localhost:65497/api/Book",
             {
                 method: 'GET'
@@ -131,7 +141,7 @@ export default function Dashboard() {
                 if (response.status === 200) {
                     response.json().then(function (data) {
                         if (data) {
-                            fetchBookList();
+                            getBookList();
                             alert("Book with id: " + id + " deleted.")
                         }
                     });
@@ -142,10 +152,10 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        fetchBookList();
-        fetchAuthorList();
-        fetchCategoryList();
-        fetchPublisherList();
+        getBookList();
+        getAuthorList();
+        getCategoryList();
+        getPublisherList();
     }, []);
 
     const handleAddNewBook = () => {
@@ -177,7 +187,7 @@ export default function Dashboard() {
                 .then((response) => {
                     if (response.status === 200) {
                         alert("Book Detail added");
-                        fetchBookList();
+                        getBookList();
                         setModalIsOpen(false);
                     } else {
                         alert("failed to save details");
@@ -194,7 +204,7 @@ export default function Dashboard() {
                 .then((response) => {
                     if (response.status === 200) {
                         alert("Book Detail Updated");
-                        fetchBookList();
+                        getBookList();
                         setModalIsOpen(false);
                     } else {
                         alert("failed to save details");
