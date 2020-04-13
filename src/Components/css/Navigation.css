@@ -1,7 +1,7 @@
 .App-Header{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     background: #20232a;
@@ -28,4 +28,45 @@
 
   .hidden{
       display: none;
+  }
+
+
+
+  .Logo, .Nav-components{
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Logo{
+      margin-left: 30px;
+      width: 40%;
+  }
+
+  .Nav-components{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+  }
+
+  .Nav-components li{
+      font-size: 20px;
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+  }
+
+  .Nav-components a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+  }
+
+  .Nav-components a:hover {
+    
+    text-decoration: none;
+    color: white;
   }

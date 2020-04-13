@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import './css/Login.css';
 
@@ -38,6 +38,8 @@ export default function Login() {
                     console.log('login',response);
                     response.json().then(function(data) {
                         if(data){
+                            localStorage.setItem("authToken",data.authtoken);
+                            document.cookie = `Username=${data.user.username}`
                             history.push('/dashboard')
                         }
                      });
@@ -50,6 +52,13 @@ export default function Login() {
             })
             .catch((response) => { console.log(response) })
     }
+
+    useEffect(()=>{
+        let username = document.cookie.split('=');
+        if(username[1]){
+            history.push('/dashboard');
+        }
+    })
     return (
         <div className="ContentForm">
             <div className="ErrorMessage">

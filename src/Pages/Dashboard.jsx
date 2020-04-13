@@ -30,7 +30,9 @@ export default function Dashboard() {
     const [isSave, setIsSave] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
 
-    const history = useHistory(); 
+    const history = useHistory();
+
+    const authToken = localStorage.getItem("authToken");
 
     const getAuthorList = () => {
         fetch("http://localhost:65497/api/Author",
@@ -48,7 +50,7 @@ export default function Dashboard() {
                 }
             });
 
-            // console.log(fetchAuthorList());
+        // console.log(fetchAuthorList());
         // setAuthorList(fetchAuthorList());
         // setIsLoading(false);
     }
@@ -87,14 +89,17 @@ export default function Dashboard() {
                     alert("Unable to fetch books from database!");
                 }
             });
-    // setPublisherList(fetchPublisherList());
-    // setIsLoading(false);
+        // setPublisherList(fetchPublisherList());
+        // setIsLoading(false);
     }
 
     const getBookList = () => {
         fetch("http://localhost:65497/api/Book",
             {
-                method: 'GET'
+                method: 'GET',
+                headers:{
+                    Authorization: `Bearer ${authToken}`
+                }
             })
             .then((response) => {
                 if (response.status === 200) {
@@ -152,10 +157,14 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        getBookList();
-        getAuthorList();
-        getCategoryList();
-        getPublisherList();
+        if (!document.cookie.split('=')[1]) {
+            history.push('/');
+        } else {
+            getBookList();
+            getAuthorList();
+            getCategoryList();
+            getPublisherList();
+        }
     }, []);
 
     const handleAddNewBook = () => {
@@ -224,11 +233,11 @@ export default function Dashboard() {
         deleteBook(event.target.id);
     }
 
-    const handleSearch = () =>{
+    const handleSearch = () => {
         history.push('/SearchBook');
     }
 
-    const handleViewBooks = () => { 
+    const handleViewBooks = () => {
         history.push('/booksbypublisher');
     }
 
@@ -293,25 +302,25 @@ export default function Dashboard() {
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label>Publisher Id</Form.Label>
                         <Form.Control as="select" onChange={(e) => setPublisherId(e.target.value)} >
-                            {publisherList.map((publisher,index) =>{
+                            {publisherList.map((publisher, index) => {
                                 return <option key={index} value={publisher.publisherId}>{publisher.publisherId}</option>
-                            })}                            
+                            })}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label>Author Id</Form.Label>
                         <Form.Control as="select" onChange={(e) => setAuthorId(e.target.value)}>
-                            {aurthorList.map((author,index) =>{
+                            {aurthorList.map((author, index) => {
                                 return <option key={index} value={author.authorId}>{author.authorId}</option>
-                            })}                            
+                            })}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label>Category Id</Form.Label>
                         <Form.Control as="select" onChange={(e) => setCategoryId(e.target.value)}>
-                            {categoryList.map((category,index) =>{
+                            {categoryList.map((category, index) => {
                                 return <option key={index} value={category.categoryId}>{category.categoryId}</option>
-                            })}                            
+                            })}
                         </Form.Control>
                     </Form.Group>
                     <Button variant="primary" type="submit" style={{ marginRight: '10px' }}
